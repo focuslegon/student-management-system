@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState, createContext } from "react";
 
-function App() {
+import { NavBar } from "./components/NavBar"; 
+import { Routes } from "./components/Routes";
+import  Footer  from "./components/Footer";
+
+export const DarkThemeContext = createContext();
+
+function App () {
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  useEffect(()=> {
+    const Stored = localStorage.getItem('dark');
+    if (Stored) {
+      const storedDark = JSON.parse(Stored);
+      setDarkTheme(storedDark)
+    }else{
+      setDarkTheme(darkTheme)
+    }
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <DarkThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
+    <div className={darkTheme?'dark':''}>
+      <div className="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 min-h-screen">
+          <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+        <Routes/>
+        <Footer/>
+      </div>
     </div>
+    </DarkThemeContext.Provider>
   );
 }
-
 export default App;
