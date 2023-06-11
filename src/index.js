@@ -9,9 +9,9 @@ import {ResultContextProvider} from './contexts/ResultsContexProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
-    <ResultContextProvider>
+    {/* <ResultContextProvider> */}
        <App />
-     </ResultContextProvider>
+     {/* </ResultContextProvider> */}
   </Router>
  
 );
